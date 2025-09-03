@@ -12,10 +12,10 @@ module AlfaBank
     end
 
     def call
+      opts.merge!(user_name: user_name, password: password)
       unless valid?
         raise_custom_error
       end
-      opts.merge!(user_name: user_name, password: password)
       data_builder.build_params(request_type, opts)
     end
 

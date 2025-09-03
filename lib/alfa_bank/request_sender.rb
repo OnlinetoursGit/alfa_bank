@@ -1,5 +1,6 @@
 require File.join(File.dirname(__FILE__), 'data_builder')
 require 'uri'
+require 'net/http'
 
 module AlfaBank
   class RequestSender

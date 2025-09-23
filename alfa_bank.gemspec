@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{AlfaBank api adapter.}
   spec.description   = %q{AlfaBank api adapter provides friendly interface for comunication with AlfaBank REST API.}
-  spec.homepage      = 'https://github.com/lvl0nax/alfa_bank'
+  spec.homepage      = 'https://github.com/OnlinetoursGit/alfa_bank'
   spec.license       = 'MIT'
 
   spec.required_ruby_version = '>= 3.4.3'

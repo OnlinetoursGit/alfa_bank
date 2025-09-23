@@ -15,7 +15,7 @@ module AlfaBank
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
 
-      request = Net::HTTP::Post.new(uri.path, {'Content-Type' =>'application/json'})
+      request = Net::HTTP::Post.new(uri.path, {'Content-Type' => 'application/json;charset=utf-8'})
       params = data_builder.call
       request.set_form_data params
 

@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/OnlinetoursGit/alfa_bank'
   spec.license       = 'MIT'
 
-  spec.required_ruby_version = '>= 3.4.3'
+  spec.required_ruby_version = '>= 3.1.7'
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = 'exe'

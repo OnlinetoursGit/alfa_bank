@@ -12,7 +12,7 @@ module AlfaBank
     end
 
     def call
-      opts.merge!(user_name: user_name, password: password)
+      opts.merge!(user_name: user_name, password: password, language: language)
       unless valid?
         raise_custom_error
       end
@@ -36,6 +36,10 @@ module AlfaBank
 
     def password
       AlfaBank.configuration.password
+    end
+
+    def language
+      AlfaBank.configuration.language
     end
 
     # TODO: add depandency from config (soap|rest)

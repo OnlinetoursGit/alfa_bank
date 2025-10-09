@@ -1,4 +1,5 @@
 require 'singleton'
+require 'json'
 require File.join(File.dirname(__FILE__), 'request_sender')
 
 module AlfaBank
@@ -74,7 +75,10 @@ module AlfaBank
       private
 
       def send_request(request_type, opts)
-        instance.send(:send_request, request_type, opts)
+        response = instance.send(:send_request, request_type, opts)
+        JSON.parse(response.body)
+      rescue StandardError => e
+        { error_class: e.class.to_s, error_message: e.message, backtrace: e.backtrace }
       end
     end
 

@@ -1,4 +1,5 @@
 require File.join(File.dirname(__FILE__), "constants")
+require 'active_support/core_ext/string/inflections'
 
 module AlfaBank
   module RestDataBuilder
@@ -6,11 +7,7 @@ module AlfaBank
       unless Constants::ALFA_LINKS.key?(key)
         raise NoMethodError, "#{key} type of request does not supported by AlfaBank adapter"
       end
-      params = {}
-      Constants.const_get("#{key.upcase}_FIELDS_MAP").each_pair do |arg, alfa_param|
-        params[alfa_param] = args[arg] if args[arg]
-      end
-      params
+      args.transform_keys { |key| key.to_s.camelize(:lower) }
     end
   end
 end

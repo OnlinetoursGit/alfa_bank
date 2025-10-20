@@ -4,18 +4,19 @@ module AlfaBank
     # AlfaBank::Notification
     class Notification
       SUCCESS_STATUS = '1'
+      VALUE_SEPARATOR = ';'
+      DEFAULT_ALGORITHM = 'sha256'
 
       def initialize(data:)
-        define_instances serialized_data(data)
+        define_instances(data)
       end
 
       def success?
         status == SUCCESS_STATUS
       end
 
-      def valid?(secret_key:, signature:)
-        true
-        # signature == hmac(secret_key)
+      def valid?(secret_key: notification_secret_key)
+        checksum == hmac(secret_key).upcase
       end
 
       def to_h
@@ -24,10 +25,18 @@ module AlfaBank
 
       private
 
-      attr_reader :payment_id, :capture_id, :refund_id, :authorize_id, :operation, :status, :checksum
+      def hmac(secret_key)
+        digest = OpenSSL::Digest.new(DEFAULT_ALGORITHM)
+        OpenSSL::HMAC.hexdigest(digest, secret_key, sorted_param_string)
+      end
 
-      def serialized_data(data)
-        data.transform_keys { |key| key.to_s.underscore }
+      def sorted_param_string
+        hash = to_h
+        hash.delete "sign_alias"
+        hash.delete "checksum"
+        sorted = hash.sort
+        joined = sorted.flatten.join(VALUE_SEPARATOR) << VALUE_SEPARATOR
+        joined
       end
 
       def define_instances(data)
@@ -35,6 +44,10 @@ module AlfaBank
           instance_variable_set("@#{k}", v)
           self.class.send(:attr_reader, k)
         end
+      end
+
+      def notification_secret_key
+        AlfaBank.configuration.notification_secret_key
       end
     end
 end

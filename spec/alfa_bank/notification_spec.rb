@@ -3,11 +3,6 @@ require 'spec_helper'
 describe AlfaBank::Notification do
 
   subject(:notification) { described_class.new(data: notification_params) }
-  before do
-    AlfaBank.configure do |config|
-      config.notification_secret_key = "notification_secret_key"
-    end
-  end
 
   describe 'authorize' do
     context 'success notified' do
@@ -31,7 +26,7 @@ describe AlfaBank::Notification do
         expect(notification.success?).to be_truthy
       end
       it 'should be valid' do
-        expect(notification.valid?).to be_truthy
+        expect(notification.valid?(secret_key: 'notification_secret_key')).to be_truthy
       end
     end
   end
@@ -60,7 +55,7 @@ describe AlfaBank::Notification do
       end
 
       it 'should be valid' do
-        expect(notification.valid?).to be_truthy
+        expect(notification.valid?(secret_key: 'notification_secret_key')).to be_truthy
       end
     end
   end
@@ -90,7 +85,7 @@ describe AlfaBank::Notification do
       end
 
       it 'should be valid' do
-        expect(notification.valid?).to be_truthy
+        expect(notification.valid?(secret_key: 'notification_secret_key')).to be_truthy
       end
     end
   end

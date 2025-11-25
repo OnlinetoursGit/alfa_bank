@@ -45,9 +45,5 @@ module AlfaBank
           self.class.send(:attr_reader, k)
         end
       end
-
-      def notification_secret_key
-        AlfaBank.configuration.notification_secret_key
-      end
     end
 end

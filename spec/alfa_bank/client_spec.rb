@@ -4,8 +4,6 @@ describe AlfaBank::Client do
   describe 'sending request' do
     before do
       AlfaBank.configure do |config|
-        config.user_name = 'tester'
-        config.password  = 'tester_password'
         config.base_link = 'tester_base_link'
       end
     end

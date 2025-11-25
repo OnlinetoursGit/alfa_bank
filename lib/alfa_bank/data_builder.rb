@@ -4,11 +4,12 @@ require 'active_support/core_ext/hash/keys'
 
 module AlfaBank
   class DataBuilder
-    attr_accessor :request_type, :opts
+    attr_accessor :request_type, :opts, :creds
 
-    def initialize(request_type, opts)
+    def initialize(request_type, opts, creds)
       @request_type = request_type
       @opts = opts.symbolize_keys!
+      @creds = creds.symbolize_keys!
     end
 
     def call
@@ -31,11 +32,11 @@ module AlfaBank
     end
 
     def user_name
-      AlfaBank.configuration.user_name
+      creds[:user_name]
     end
 
     def password
-      AlfaBank.configuration.password
+      creds[:password]
     end
 
     def language

@@ -27,8 +27,7 @@ Or install it yourself as:
 
 ```ruby
 AlfaBank.configure do |config|
-  config.user_name = ENV[:ALFA_BANK_USERNAME]  # username alfa-bank api account
-  config.password = ENV[:ALFA_BANK_PASSWORD]   # password from alfa-bank api account
+  config.language = 'ru'
   config.base_link = 'https://test.paymentgate.ru/testpayment/rest/'
 end
 ```

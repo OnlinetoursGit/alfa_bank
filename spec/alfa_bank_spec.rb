@@ -4,22 +4,15 @@ describe AlfaBank do
   describe "#configure" do
     before do
       AlfaBank.configure do |config|
-        config.user_name = "tester"
-        config.password = "tester_password"
+        config.language = "ru"
         config.base_link = "tester_base_link"
       end
     end
 
-    it "returns a setted user_name" do
-      user_name = AlfaBank::DataBuilder.new(:test, {}).user_name
+    it "returns a setted language" do
+      language = AlfaBank::DataBuilder.new(:test, {}).language
 
-      expect(user_name).to eq("tester")
-    end
-
-    it "returns a setted password" do
-      password = AlfaBank::DataBuilder.new(:test, {}).password
-
-      expect(password).to eq("tester_password")
+      expect(password).to eq("ru")
     end
 
     it "returns a setted base_link" do

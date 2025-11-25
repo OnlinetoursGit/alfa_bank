@@ -29,8 +29,6 @@ describe AlfaBank::DataBuilder do
   describe '#link' do
     it 'returns correct link for key' do
       AlfaBank.configure do |config|
-        config.user_name = 'tester'
-        config.password  = 'tester_password'
         config.base_link = 'tester_base_link'
       end
       expect(described_class.new(:register_order, {}).link).to eq('tester_base_link/register.do')
@@ -40,8 +38,6 @@ describe AlfaBank::DataBuilder do
   describe '#data' do
     before do
       AlfaBank.configure do |config|
-        config.user_name = 'tester'
-        config.password  = 'tester_password'
         config.base_link = 'tester_base_link'
       end
     end

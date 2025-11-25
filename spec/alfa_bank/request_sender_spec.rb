@@ -4,8 +4,6 @@ describe AlfaBank::RequestSender do
   describe 'sending request' do
     before do
       AlfaBank.configure do |config|
-        config.user_name = 'tester'
-        config.password  = 'tester_password'
         config.base_link = 'https://alfa-bank.com/rest'
       end
       allow(Net::HTTP).to receive(:new).and_return(http_client)

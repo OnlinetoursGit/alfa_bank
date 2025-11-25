@@ -23,7 +23,7 @@ Or install it yourself as:
 
 ## Usage
 
-###Configuration(initializer):
+### Configuration(initializer):
 
 ```ruby
 AlfaBank.configure do |config|
@@ -32,14 +32,15 @@ AlfaBank.configure do |config|
 end
 ```
 
-###usage
+### Calling API
 
 ```ruby
+credentials = { user_name: 'test-api', password: 'passw' }
 params =
   { order_number: 1,
     amount: 10043, # in cents
     return_url: [YOUR_APP_RETURN_URL]}
-AlfaBank::Client.register_order(params)
+AlfaBank::Client.register_order(params, credentials)
 ```
 
 For more information: [WIKI](https://github.com/lvl0nax/alfa_bank/wiki)

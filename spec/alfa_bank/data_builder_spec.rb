@@ -1,25 +1,26 @@
 require 'spec_helper'
 
 describe AlfaBank::DataBuilder do
+  let(:creds) { { user_name: 'tester', password: 'pass' } }
   describe '#valid?' do
     context 'required fields should not be nil' do
       AlfaBank::Constants::REQUIRED_FIELDS.each_pair do |request, fields|
         it "returns true for #{request}" do
           h = build_params(fields)
-          expect(described_class.new(request, h).valid?).to be true
+          expect(described_class.new(request, h, creds).valid?).to be true
         end
 
         fields.each do |f|
           it "returns false for #{request} with #{f} field eql nil" do
             h = build_params(fields)
             h[f] = nil
-            expect(described_class.new(request, h).valid?).to be false
+            expect(described_class.new(request, h, creds).valid?).to be false
           end
 
           it "returns false for #{request} with absent #{f} field" do
             h = build_params(fields)
             h.delete(f)
-            expect(described_class.new(request, h).valid?).to be false
+            expect(described_class.new(request, h, creds).valid?).to be false
           end
         end
       end
@@ -31,7 +32,7 @@ describe AlfaBank::DataBuilder do
       AlfaBank.configure do |config|
         config.base_link = 'tester_base_link'
       end
-      expect(described_class.new(:register_order, {}).link).to eq('tester_base_link/register.do')
+      expect(described_class.new(:register_order, {}, creds).link).to eq('tester_base_link/register.do')
     end
   end
 
@@ -45,13 +46,13 @@ describe AlfaBank::DataBuilder do
     AlfaBank::Constants::REQUIRED_FIELDS.each_pair do |request, fields|
       it "does not raise error for #{request}" do
         h = build_params(fields)
-        expect(described_class.new(request, h).call).to be_a(Hash)
+        expect(described_class.new(request, h, creds).call).to be_a(Hash)
       end
     end
 
     it 'raises error for :test request' do
       h = build_params(AlfaBank::Constants::REQUIRED_FIELDS[:register_order])
-      expect { described_class.new(:test, h).call }
+      expect { described_class.new(:test, h, creds).call }
         .to raise_error(StandardError, 'Please check that params are correct')
     end
   end

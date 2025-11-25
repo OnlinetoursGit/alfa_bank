@@ -40,7 +40,7 @@ module AlfaBank
       end
 
       def adds_params_to_order(params, creds)
-        send_request(:adds_params_to_order, params)
+        send_request(:adds_params_to_order, params, creds)
       end
 
       def payment_statistic(params, creds)

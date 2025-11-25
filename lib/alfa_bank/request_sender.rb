@@ -6,8 +6,8 @@ module AlfaBank
   class RequestSender
     attr_accessor :data_builder
 
-    def initialize(request_type, params)
-      @data_builder = DataBuilder.new(request_type, params)
+    def initialize(request_type, params, creds)
+      @data_builder = DataBuilder.new(request_type, params, creds)
     end
 
     def call

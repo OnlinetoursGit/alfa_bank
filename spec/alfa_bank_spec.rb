@@ -8,15 +8,16 @@ describe AlfaBank do
         config.base_link = "tester_base_link"
       end
     end
+    let(:creds) { { user_name: 'tester', password: 'pass' } }
 
     it "returns a setted language" do
-      language = AlfaBank::DataBuilder.new(:test, {}).language
+      language = AlfaBank::DataBuilder.new(:test, {}, creds).language
 
-      expect(password).to eq("ru")
+      expect(language).to eq("ru")
     end
 
     it "returns a setted base_link" do
-      link = AlfaBank::DataBuilder.new(:register_order, {}).link
+      link = AlfaBank::DataBuilder.new(:register_order, {}, creds).link
 
       expect(link).to include("tester_base_link")
     end
